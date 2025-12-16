@@ -30,7 +30,11 @@ const columns: GridColDef<PegawaiRow>[] = [
     width: 90,
     align: 'center',
     headerAlign: 'center',
-    sortable: true,
+    sortable: false,
+    valueGetter: (_value, _row, _column, apiRef) => {
+      const index = apiRef.current.getRowIndexRelativeToVisibleRows(_row.id)
+      return index >= 0 ? index + 1 : ''
+    },
   },
   {
     field: 'nama',
@@ -73,7 +77,7 @@ export default function App() {
 
     return PEGAWAI.filter((row) => {
       const haystack = normalizeSearch(
-        `${row.no} ${row.nama} ${row.nip} ${row.jabatan} ${row.pangkatGol}`,
+        `${row.nama} ${row.nip} ${row.jabatan} ${row.pangkatGol}`,
       )
       return haystack.includes(q)
     })

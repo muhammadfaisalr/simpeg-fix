@@ -1,8 +1,11 @@
 export type PegawaiRaw = {
-  NO: string
   'Nama / NIP': string
   'Nama Jabatan': string
   'Pangkat/Gol': string
+}
+
+type PegawaiRawSource = PegawaiRaw & {
+  NO: string
 }
 
 export type PegawaiRow = {
@@ -14,7 +17,7 @@ export type PegawaiRow = {
   pangkatGol: string
 }
 
-const RAW: PegawaiRaw[] = [
+const RAW_SOURCE: PegawaiRawSource[] = [
   {
     NO: '1',
     'Nama / NIP': 'A. Aliah Indah Fitriah, S.Hut.\n199601032024212050',
@@ -472,12 +475,6 @@ const RAW: PegawaiRaw[] = [
     'Pangkat/Gol': 'Pengatur Muda (II/a)',
   },
   {
-    NO: '77',
-    'Nama / NIP': 'Netty Noerhayati Therik, S.Hut.\n196712121989032001',
-    'Nama Jabatan': 'Penelaah Teknis Kebijakan',
-    'Pangkat/Gol': 'Penata Tingkat I (III/d)',
-  },
-  {
     NO: '78',
     'Nama / NIP': 'Nidiansjah\n197501301997031001',
     'Nama Jabatan': 'Polisi Kehutanan Penyelia',
@@ -529,12 +526,6 @@ const RAW: PegawaiRaw[] = [
     NO: '86',
     'Nama / NIP': 'Prawira Harja, S.P.\n198510162007101001',
     'Nama Jabatan': 'Pengendali Ekosistem Hutan Mahir',
-    'Pangkat/Gol': 'Penata Muda (III/a)',
-  },
-  {
-    NO: '87',
-    'Nama / NIP': 'Prayitno\n196705102006041002',
-    'Nama Jabatan': 'Peneliti Utama',
     'Pangkat/Gol': 'Penata Muda (III/a)',
   },
   {
@@ -766,6 +757,12 @@ const RAW: PegawaiRaw[] = [
     'Pangkat/Gol': 'Penata Muda (III/a)',
   },
 ]
+
+const RAW: PegawaiRaw[] = RAW_SOURCE.map((item) => {
+  const copy = { ...item } as Record<string, unknown>
+  delete copy.NO
+  return copy as unknown as PegawaiRaw
+})
 
 function splitNamaNip(value: string): { nama: string; nip: string } {
   const normalized = value.replace(/\r\n/g, '\n').trim()
