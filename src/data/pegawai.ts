@@ -778,14 +778,19 @@ function splitNamaNip(value: string): { nama: string; nip: string } {
 
 export const PEGAWAI: PegawaiRow[] = RAW.map((item) => {
   const { nama, nip } = splitNamaNip(item['Nama / NIP'])
-  const noNumber = Number.parseInt(item.NO, 10)
 
   return {
-    id: Number.isFinite(noNumber) ? noNumber : Math.random(),
-    no: Number.isFinite(noNumber) ? noNumber : 0,
+    id: 0,
+    no: 0,
     nama,
     nip,
     jabatan: item['Nama Jabatan'],
     pangkatGol: item['Pangkat/Gol'],
   }
 })
+  .filter((row) => !/\bpensiun\b/i.test(row.jabatan))
+  .map((row, index) => ({
+    ...row,
+    id: index + 1,
+    no: index + 1,
+  }))

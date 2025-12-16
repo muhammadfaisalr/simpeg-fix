@@ -86,7 +86,7 @@ export default function App() {
         <AppBar position="sticky" color="default" elevation={0}>
           <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              SIMPEG - Data Pegawai
+              Data Pegawai BKSDA Kalimantan Timur
             </Typography>
           </Toolbar>
         </AppBar>
