@@ -58,6 +58,12 @@ const columns: GridColDef<PegawaiRow>[] = [
     headerName: 'Pangkat/Gol',
     width: 220,
   },
+  {
+    field: 'unitKerja',
+    headerName: 'Unit Kerja',
+    flex: 1,
+    minWidth: 220,
+  },
 ]
 
 function normalizeSearch(value: string) {
@@ -115,6 +121,9 @@ export default function App() {
                 <Typography variant="body2" color="text.secondary">
                   Cari berdasarkan nama, NIP, jabatan, pangkat/gol, atau nomor.
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Data terakhir diperbarui: <b>19 Januari 2026</b>
+                </Typography>            
               </Box>
 
               <Stack
